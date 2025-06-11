@@ -47,6 +47,7 @@
   "build": {
     "appId": "com.ceevee.clipboard-manager",
     "productName": "CeeVee",
+    "icon": "build/icons/icon",
     "directories": {
       "output": "dist"
     },
@@ -60,6 +61,7 @@
       "package.json"
     ],
     "mac": {
+      "icon": "build/icons/icon.png",
       "category": "public.app-category.productivity",
       "target": [
         {

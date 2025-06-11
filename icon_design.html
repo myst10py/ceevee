@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CeeVee Icon Generator</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        #canvas {
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: white;
+        }
+        
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #007AFF;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        button:hover {
+            background: #0056CC;
+        }
+        
+        .preview {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .preview img {
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+    <h1>CeeVee Icon Generator</h1>
+    <canvas id="canvas" width="1024" height="1024"></canvas>
+    
+    <div class="controls">
+        <button onclick="generateIcon()">Generate Icon</button>
+        <button onclick="downloadIcon()">Download PNG</button>
+    </div>
+    
+    <div class="preview">
+        <h3>Preview (128px)</h3>
+        <canvas id="preview" width="128" height="128" style="border-radius: 12px;"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const previewCanvas = document.getElementById('preview');
+        const previewCtx = previewCanvas.getContext('2d');
+        
+        function generateIcon() {
+            const size = 1024;
+            const center = size / 2;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, size, size);
+            
+            // Create gradient background - modern blue to purple
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#4F46E5'); // Indigo
+            gradient.addColorStop(1, '#7C3AED'); // Purple
+            
+            // Draw rounded rectangle background
+            const radius = size * 0.18; // iOS-style corner radius
+            ctx.fillStyle = gradient;
+            roundedRect(ctx, 0, 0, size, size, radius);
+            ctx.fill();
+            
+            // Add subtle inner shadow for depth
+            const shadowGradient = ctx.createRadialGradient(center, center * 0.3, 0, center, center, center);
+            shadowGradient.addColorStop(0, 'rgba(255,255,255,0.3)');
+            shadowGradient.addColorStop(1, 'rgba(0,0,0,0.1)');
+            ctx.fillStyle = shadowGradient;
+            roundedRect(ctx, 0, 0, size, size, radius);
+            ctx.fill();
+            
+            // Draw clipboard base - modern minimal design
+            const clipboardWidth = size * 0.45;
+            const clipboardHeight = size * 0.55;
+            const clipboardX = center - clipboardWidth / 2;
+            const clipboardY = center - clipboardHeight / 2 + size * 0.05;
+            
+            // Clipboard shadow
+            ctx.fillStyle = 'rgba(0,0,0,0.2)';
+            roundedRect(ctx, clipboardX + 8, clipboardY + 8, clipboardWidth, clipboardHeight, 24);
+            ctx.fill();
+            
+            // Clipboard body
+            ctx.fillStyle = '#FFFFFF';
+            roundedRect(ctx, clipboardX, clipboardY, clipboardWidth, clipboardHeight, 24);
+            ctx.fill();
+            
+            // Clipboard clip - modern design
+            const clipWidth = clipboardWidth * 0.35;
+            const clipHeight = size * 0.08;
+            const clipX = center - clipWidth / 2;
+            const clipY = clipboardY - clipHeight * 0.4;
+            
+            // Clip shadow
+            ctx.fillStyle = 'rgba(0,0,0,0.15)';
+            roundedRect(ctx, clipX + 4, clipY + 4, clipWidth, clipHeight, 16);
+            ctx.fill();
+            
+            // Clip body
+            const clipGradient = ctx.createLinearGradient(clipX, clipY, clipX, clipY + clipHeight);
+            clipGradient.addColorStop(0, '#E5E7EB');
+            clipGradient.addColorStop(1, '#D1D5DB');
+            ctx.fillStyle = clipGradient;
+            roundedRect(ctx, clipX, clipY, clipWidth, clipHeight, 16);
+            ctx.fill();
+            
+            // Add text lines on clipboard - minimal and clean
+            const lineHeight = size * 0.04;
+            const lineSpacing = size * 0.06;
+            const textStartY = clipboardY + size * 0.15;
+            
+            ctx.fillStyle = '#6B7280';
+            
+            // First line (longer)
+            roundedRect(ctx, clipboardX + size * 0.08, textStartY, clipboardWidth * 0.7, lineHeight * 0.6, 4);
+            ctx.fill();
+            
+            // Second line (medium)
+            roundedRect(ctx, clipboardX + size * 0.08, textStartY + lineSpacing, clipboardWidth * 0.55, lineHeight * 0.6, 4);
+            ctx.fill();
+            
+            // Third line (shorter)
+            roundedRect(ctx, clipboardX + size * 0.08, textStartY + lineSpacing * 2, clipboardWidth * 0.4, lineHeight * 0.6, 4);
+            ctx.fill();
+            
+            // Add "CV" text - modern typography
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = `bold ${size * 0.12}px -apple-system, system-ui, sans-serif`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            
+            // Add text shadow for better contrast
+            ctx.shadowColor = 'rgba(0,0,0,0.3)';
+            ctx.shadowBlur = 8;
+            ctx.shadowOffsetX = 2;
+            ctx.shadowOffsetY = 2;
+            
+            ctx.fillText('CV', center, clipboardY + clipboardHeight * 0.75);
+            
+            // Reset shadow
+            ctx.shadowColor = 'transparent';
+            ctx.shadowBlur = 0;
+            ctx.shadowOffsetX = 0;
+            ctx.shadowOffsetY = 0;
+            
+            // Add checkmark - modern success indicator
+            drawCheckmark(ctx, center + clipboardWidth * 0.25, clipboardY + clipboardHeight * 0.25, size * 0.08);
+            
+            // Update preview
+            updatePreview();
+        }
+        
+        function drawCheckmark(ctx, x, y, size) {
+            // Checkmark background circle
+            ctx.fillStyle = '#10B981'; // Emerald green
+            ctx.beginPath();
+            ctx.arc(x, y, size * 0.8, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Checkmark shadow
+            ctx.fillStyle = 'rgba(0,0,0,0.2)';
+            ctx.beginPath();
+            ctx.arc(x + 2, y + 2, size * 0.8, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Redraw checkmark background
+            ctx.fillStyle = '#10B981';
+            ctx.beginPath();
+            ctx.arc(x, y, size * 0.8, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Draw checkmark
+            ctx.strokeStyle = '#FFFFFF';
+            ctx.lineWidth = size * 0.15;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            ctx.beginPath();
+            ctx.moveTo(x - size * 0.3, y - size * 0.05);
+            ctx.lineTo(x - size * 0.1, y + size * 0.2);
+            ctx.lineTo(x + size * 0.35, y - size * 0.25);
+            ctx.stroke();
+        }
+        
+        function roundedRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+        
+        function updatePreview() {
+            previewCtx.clearRect(0, 0, 128, 128);
+            previewCtx.drawImage(canvas, 0, 0, 128, 128);
+        }
+        
+        function downloadIcon() {
+            const link = document.createElement('a');
+            link.download = 'ceevee-icon-1024x1024.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+        
+        // Generate icon on page load
+        generateIcon();
+    </script>
+</body>
+</html>
