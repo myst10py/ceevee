@@ -4,7 +4,7 @@
 
 A lightweight, open-source, keyboard-first clipboard manager for macOS that saves everything you copy and lets you access it instantly.
 
-![CeeVee Screenshot](https://via.placeholder.com/400x300/1a1a1a/ffffff?text=CeeVee+Screenshot)
+![CeeVee Screenshot](./screenshots/ceevee-main.png)
 
 ## ✨ Features
 
