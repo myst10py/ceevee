@@ -35,12 +35,21 @@ Press `Shift + Cmd + V` from anywhere to open your clipboard history.
 
 ## 🚀 Installation
 
-### Option 1: Download Release (Recommended)
-1. Download the latest `.dmg` from [Releases](../../releases)
-2. Open the DMG and drag CeeVee to Applications
-3. Launch CeeVee and grant accessibility permissions when prompted
+### Option 1: Download DMG (Recommended for Users)
+**Best for**: Regular users who want a simple, ready-to-use app
 
-### Option 2: Build from Source
+1. Download the latest `CeeVee-1.0.0.dmg` from [Releases](../../releases)
+2. Double-click the DMG file to mount it
+3. Drag the CeeVee app icon to the Applications folder
+4. Eject the DMG and delete the file (optional)
+5. Launch CeeVee from Applications or Spotlight
+6. Grant accessibility permissions when prompted (required for global shortcuts)
+
+**Benefits**: Pre-built, optimized, includes custom app icon, auto-updates ready
+
+### Option 2: Build from Source (For Developers)
+**Best for**: Developers, contributors, or users who want to modify the app
+
 ```bash
 # Clone the repository
 git clone https://github.com/myst10py/ceevee.git
@@ -52,9 +61,11 @@ npm install
 # Run in development mode
 npm start
 
-# Build for distribution
+# Build your own DMG
 npm run build
 ```
+
+**Benefits**: Latest code, customizable, contribute to development
 
 ## ⚙️ Requirements
 
