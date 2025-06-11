@@ -1,0 +1,82 @@
+{
+  "name": "ceevee",
+  "version": "1.0.0",
+  "description": "Minimal, fast, invisible clipboard manager for macOS",
+  "main": "main.js",
+  "homepage": "https://github.com/yourusername/ceevee",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/ceevee.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/ceevee/issues"
+  },
+  "scripts": {
+    "start": "npm run css && electron .",
+    "dev": "npm run css:watch & electron .",
+    "css": "tailwindcss -i ./style.css -o ./dist.css --minify",
+    "css:watch": "tailwindcss -i ./style.css -o ./dist.css --watch",
+    "build": "npm run css && electron-builder",
+    "dist": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "clipboard",
+    "manager",
+    "productivity",
+    "macos",
+    "electron",
+    "keyboard-shortcuts",
+    "developer-tools"
+  ],
+  "author": "CeeVee Contributors",
+  "license": "MIT",
+  "dependencies": {
+    "jiti": "~2.4.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "electron": "^27.0.0",
+    "electron-builder": "^24.0.0",
+    "postcss": "^8.4.0",
+    "tailwind-merge": "^2.0.0",
+    "tailwindcss": "^3.4.0"
+  },
+  "build": {
+    "appId": "com.ceevee.clipboard-manager",
+    "productName": "CeeVee",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "index.html",
+      "renderer.js",
+      "dist.css",
+      "components/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "minimumSystemVersion": "11.0.0"
+    },
+    "dmg": {
+      "title": "CeeVee Clipboard Manager",
+      "window": {
+        "width": 500,
+        "height": 300
+      }
+    }
+  }
+}

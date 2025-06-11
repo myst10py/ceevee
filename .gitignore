@@ -1,0 +1,90 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+dist/
+build/
+out/
+*.dmg
+*.zip
+*.tar.gz
+
+# Electron build artifacts
+app.asar
+*.app
+*.exe
+*.deb
+*.rpm
+*.AppImage
+
+# Development
+.DS_Store
+Thumbs.db
+*.log
+.npm
+.eslintcache
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Runtime files
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# User data (clipboard history)
+clipboard.db
+clipboard-history.json
+
+# Tailwind generated files (these are built)
+dist.css
+
+# Development docs that shouldn't be public (keep locally)
+plan/
+PROGRESS_REPORT.md
+USER_GUIDE.md
+FINAL_STATUS.md
+*COMPLETION_REPORT.md
+*PHASE*.md
+renderer_backup.js
+.claude/
+
+# Screenshots from development
+/Users/amy/Desktop/Screenshot*.png

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CeeVee</title>
+  <link href="style.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'macos-bg': 'rgba(30, 30, 30, 0.85)',
+            'macos-bg-light': 'rgba(255, 255, 255, 0.85)',
+            'macos-selection': 'rgba(0, 122, 255, 0.2)',
+          },
+          backdropBlur: {
+            'macos': '40px',
+          },
+          animation: {
+            'in': 'in 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+            'out': 'out 100ms ease-out',
+          },
+          keyframes: {
+            in: {
+              '0%': { transform: 'scale(0.95)', opacity: '0' },
+              '100%': { transform: 'scale(1)', opacity: '1' },
+            },
+            out: {
+              '0%': { transform: 'scale(1)', opacity: '1' },
+              '100%': { transform: 'scale(0.95)', opacity: '0' },
+            },
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-gray-900 overflow-hidden select-none cursor-default">
+  <div id="app" class="w-[400px] h-[300px] p-3 bg-gray-800 rounded-xl shadow-2xl animate-in border border-gray-700 flex flex-col">
+    
+    <!-- Search Bar -->
+    <div class="relative mb-3">
+      <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" 
+           fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+      <input 
+        id="search"
+        type="text" 
+        placeholder="Search clipboard history..."
+        class="w-full h-9 pl-10 pr-4 text-sm bg-white/5 border border-white/10 
+               rounded-lg outline-none transition-all duration-200
+               focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20
+               placeholder:text-gray-400 text-white/90"
+        autofocus
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+        role="searchbox"
+        aria-label="Search clipboard history"
+        aria-describedby="search-help"
+      />
+    </div>
+    
+    <!-- Search Help Text (Hidden) -->
+    <div id="search-help" class="sr-only">
+      Type to filter clipboard items. Use arrow keys to navigate, Enter to paste, Cmd+Delete to remove.
+    </div>
+    
+    <!-- Clipboard List -->
+    <div id="clipboard-list" 
+         class="flex-1 overflow-y-auto min-h-0 scrollbar-hide"
+         role="listbox" 
+         aria-label="Clipboard items"
+         aria-live="polite"
+         aria-activedescendant=""
+         tabindex="-1">
+      <!-- Empty State -->
+      <div id="empty-state" class="flex flex-col items-center justify-center text-center py-8 h-full">
+        <div class="w-12 h-12 mb-3 rounded-full bg-gray-700 
+                    flex items-center justify-center">
+          <svg class="w-6 h-6 text-gray-400" fill="none" 
+               stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+          </svg>
+        </div>
+        <h3 class="text-sm font-medium text-gray-300 mb-1">
+          Your clipboard is empty
+        </h3>
+        <p class="text-xs text-gray-500">
+          Copy something to get started
+        </p>
+      </div>
+      
+      <!-- Items will be inserted here by renderer.js -->
+    </div>
+  </div>
+  
+  <script type="module" src="renderer.js"></script>
+</body>
+</html>
