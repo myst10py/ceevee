@@ -43,7 +43,7 @@ Press `Shift + Cmd + V` from anywhere to open your clipboard history.
 ### Option 2: Build from Source
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/ceevee.git
+git clone https://github.com/myst10py/ceevee.git
 cd ceevee
 
 # Install dependencies
